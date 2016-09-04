@@ -20,6 +20,8 @@ private:
 		float CrossHairXLocation = 0.5;
 	UPROPERTY(EditAnywhere)
 		float CrossHairYLocation = 0.3333;
+	UPROPERTY(EditAnywhere)
+		float LineTraceRange = 1000000.0;
 
 	virtual void BeginPlay() override;
 
@@ -30,7 +32,7 @@ private:
 	// Start the tank moving the barrel so that a shot would hit where
 	// the cross hair intersects the world
 	void AimTowardsCrosshair();
-	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection);
-	bool GetSightRayHitLocation(FVector &HitLocation);
-
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+	bool GetSightRayHitLocation(FVector &HitLocation) const;
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
 };
