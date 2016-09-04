@@ -3,6 +3,9 @@
 #include "BattleTank2.h"
 #include "TankPlayerController.h"
 
+/**
+ * \brief Begin Play
+ */
 void ATankPlayerController::BeginPlay(){
 	Super::BeginPlay();
 
@@ -14,22 +17,33 @@ void ATankPlayerController::BeginPlay(){
 	}
 }
 
+/**
+ * \brief Tick Method
+ * \param DeltaTime 
+ */
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
 }
 
+/**
+ * \brief Get the tank that the player is controlling
+ * \return Pointer to the tank
+ */
 ATank* ATankPlayerController::GetControlledTank() const{
 	return Cast<ATank>(GetPawn());
 }
 
-void ATankPlayerController::AimTowardsCrosshair(){
+/**
+ * \brief Start the tank moving the barrel so that a shot would hit where the cross hair intersects the world
+ */
+void ATankPlayerController::AimTowardsCrosshair() const{
 	if (!GetControlledTank()) { return; }
 
 	FVector HitLocation;	// Out parameter
 	if (GetSightRayHitLocation(HitLocation)) {
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString())
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
@@ -39,7 +53,6 @@ void ATankPlayerController::AimTowardsCrosshair(){
  * \return true if an object is hit
  */
 bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation) const{
-	
 	// Find the crosshair position
 	int32 ViewportSizeX, ViewportSizeY;
 	FVector LookDirection;
@@ -50,7 +63,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation) const{
 		// Line trace along that look direction and see what we hit(up to max target)
 		GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
-
 	return true;
 }
 

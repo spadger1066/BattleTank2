@@ -30,6 +30,14 @@ void ATank::Tick( float DeltaTime )
 void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
 	Super::SetupPlayerInputComponent(InputComponent);
-
 }
 
+/**
+ * \brief aim the tank at its target
+ * \param HitLocation hte location at which to aim
+ */
+void ATank::AimAt(FVector HitLocation) const{
+	auto OurTankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *OurTankName, *HitLocation.ToString());
+
+}

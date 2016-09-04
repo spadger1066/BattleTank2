@@ -24,14 +24,10 @@ private:
 		float LineTraceRange = 1000000.0;
 
 	virtual void BeginPlay() override;
-
-	ATank* GetControlledTank() const;
-
 	virtual void Tick(float DeltaSeconds) override;
 
-	// Start the tank moving the barrel so that a shot would hit where
-	// the cross hair intersects the world
-	void AimTowardsCrosshair();
+	ATank* GetControlledTank() const;
+	void AimTowardsCrosshair() const;
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 	bool GetSightRayHitLocation(FVector &HitLocation) const;
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
