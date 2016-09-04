@@ -15,16 +15,22 @@ class BATTLETANK2_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 private:
+	// Screen coordinates
+	UPROPERTY(EditAnywhere)
+		float CrossHairXLocation = 0.5;
+	UPROPERTY(EditAnywhere)
+		float CrossHairYLocation = 0.3333;
+
 	virtual void BeginPlay() override;
 
 	ATank* GetControlledTank() const;
 
-	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
 
 	// Start the tank moving the barrel so that a shot would hit where
-	// the crosshair intersects the world
+	// the cross hair intersects the world
 	void AimTowardsCrosshair();
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection);
+	bool GetSightRayHitLocation(FVector &HitLocation);
 
-	bool GetSightRayHitLocation(FVector &HitLocation) const;
 };
