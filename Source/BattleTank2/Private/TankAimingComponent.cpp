@@ -1,6 +1,7 @@
 // It's mine. Leave it alone
 
 #include "BattleTank2.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
@@ -15,8 +16,10 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchgSpeed){
-	if (!Barrel) { return; }
-	FVector OutLaunchVelocity;
+	UE_LOG(LogTemp, Warning, TEXT("Testing Barrel"))
+		if (!Barrel) { return; }
+	UE_LOG(LogTemp, Warning, TEXT("Barrel Found"))
+		FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
@@ -28,12 +31,14 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchgSpeed){
 		ESuggestProjVelocityTraceOption::DoNotTrace);
 	if(bHaveAimSolution){
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *TankName, *AimDirection.ToString())
 		MoveBarrelTowards(AimDirection);
 	}
 	// If no solution found do nothing
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet){
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet){
 	Barrel = BarrelToSet;
 }
 
@@ -43,9 +48,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection){
 	auto AimAsARotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsARotator - BarrelRotator;
 
-	// Move the barrel the right amount this frame
-
-
-	// Given a max elevation speed and the frame time
+	Barrel->Elevate(5);	// TODO Remove magic number
 }
 
