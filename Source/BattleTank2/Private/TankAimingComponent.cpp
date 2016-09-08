@@ -1,6 +1,7 @@
 // It's mine. Leave it alone
 
 #include "BattleTank2.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 UTankAimingComponent::UTankAimingComponent()
@@ -31,7 +32,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchgSpeed){
 	}
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet){
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
+//void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
 	Barrel = BarrelToSet;
 }
 
@@ -42,6 +44,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection){
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 	UE_LOG(LogTemp, Warning, TEXT("AimRotator %s"), *AimAsRotator.ToString())
 
-	// Move the barrel the right amount this frame
-	// Given a max elevation speed, and the frame time
+	Barrel->Elevate(5);		// TODO remove magic number
 }
