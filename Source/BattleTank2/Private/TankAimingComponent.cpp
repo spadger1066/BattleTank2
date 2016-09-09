@@ -2,6 +2,7 @@
 
 #include "BattleTank2.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 UTankAimingComponent::UTankAimingComponent()
@@ -41,8 +42,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchgSpeed){
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
-//void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection){
@@ -52,5 +58,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection){
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 	//UE_LOG(LogTemp, Warning, TEXT("AimRotator %s"), *AimAsRotator.ToString())
 
-	Barrel->Elevate(DeltaRotator.Pitch);		// TODO remove magic number
+	Barrel->Elevate(DeltaRotator.Pitch);		
 }
