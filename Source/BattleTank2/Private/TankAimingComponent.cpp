@@ -23,6 +23,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchgSpeed){
 		StartLocation,
 		HitLocation,
 		LaunchgSpeed,
+		false,
+		0,
+		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace);
 	if (bHaveAimingSolution) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
@@ -47,7 +50,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection){
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("AimRotator %s"), *AimAsRotator.ToString())
+	//UE_LOG(LogTemp, Warning, TEXT("AimRotator %s"), *AimAsRotator.ToString())
 
 	Barrel->Elevate(5);		// TODO remove magic number
 }
