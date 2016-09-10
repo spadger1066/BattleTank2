@@ -6,8 +6,7 @@
 
 
 // Sets default values
-ATank::ATank()
-{
+ATank::ATank(){
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -16,17 +15,22 @@ ATank::ATank()
 }
 
 // Called when the game starts or when spawned
-void ATank::BeginPlay()
-{
+void ATank::BeginPlay(){
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 // Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
-{
+void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent){
 	Super::SetupPlayerInputComponent(InputComponent);
+}
+
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
+	TankAimingComponent->SetBarrelReference(BarrelToSet);
+}
+
+void ATank::SetTurretReference(UTankTurret* TurretToSet) {
+	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 
 /**
@@ -37,10 +41,8 @@ void ATank::AimAt(FVector HitLocation) const{
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
-void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
-}
+void ATank::Fire(){
+	auto Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%f: Tank fires"), Time)
 
-void ATank::SetTurretReference(UTankTurret* TurretToSet) {
-	TankAimingComponent->SetTurretReference(TurretToSet);
 }

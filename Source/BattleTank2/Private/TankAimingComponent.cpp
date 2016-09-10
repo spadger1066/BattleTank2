@@ -11,7 +11,6 @@ UTankAimingComponent::UTankAimingComponent()
 	// off to improve performance if you don't need them.
 	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = false; 
-
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchgSpeed){
@@ -31,11 +30,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchgSpeed){
 	if (bHaveAimingSolution) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found at %s"), Time, *HitLocation.ToString())
-	} else{
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solve found at %s"), Time, *HitLocation.ToString())
+	//	auto Time = GetWorld()->GetTimeSeconds();
+	//	UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found at %s"), Time, *HitLocation.ToString())
+	//} else{
+	//	auto Time = GetWorld()->GetTimeSeconds();
+	//	UE_LOG(LogTemp, Warning, TEXT("%f: No aim solve found at %s"), Time, *HitLocation.ToString())
 	}
 }
 
