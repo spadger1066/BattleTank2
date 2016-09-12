@@ -16,11 +16,11 @@ class BATTLETANK2_API ATankPlayerController : public APlayerController
 	
 private:
 	// Screen coordinates
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrossHairXLocation = 0.5;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrossHairYLocation = 0.3333;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000.0;
 
 	virtual void BeginPlay() override;
