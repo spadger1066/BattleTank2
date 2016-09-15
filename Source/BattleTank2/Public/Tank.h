@@ -20,12 +20,12 @@ public:
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetTurretReference(UTankTurret* TurretToSet);
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 	void AimAt(FVector HitLocation) const;
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
-		void Fire();
+	void Fire();
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
