@@ -15,14 +15,15 @@ void ATankAIController::Tick(float DeltaSeconds){
 	Super::Tick(DeltaSeconds);
 	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	auto ControlledTank = Cast<ATank>(GetPawn());
+	UE_LOG(LogTemp, Warning, TEXT("Player at %s"), *PlayerTank->GetActorLocation().ToString())
 	if(PlayerTank){
 		// Move towards the player
 		MoveToActor(PlayerTank, AcceptanceRadius);	// TODO check in cm
 
 		// Aim towards the player
-		ControlledTank->AimAt(PlayerTank->GetActorLocation() + FVector(1000, 0, 0));	// TODO remove offset
+		ControlledTank->AimAt(PlayerTank->GetActorLocation()); // +FVector(1000, 0, 0));	// TODO remove offset
 
-		ControlledTank->Fire();  // TODO don't fire every frame
+		//ControlledTank->Fire();  // TODO don't fire every frame
 	}
 }
 
