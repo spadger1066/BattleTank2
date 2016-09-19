@@ -15,8 +15,10 @@ void ATankAIController::Tick(float DeltaSeconds){
 	Super::Tick(DeltaSeconds);
 	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	auto ControlledTank = Cast<ATank>(GetPawn());
-	UE_LOG(LogTemp, Warning, TEXT("Player at %s"), *PlayerTank->GetActorLocation().ToString())
 	if(PlayerTank){
+		//UE_LOG(LogTemp, Warning, TEXT("Player     at %s"), *PlayerTank->GetActorLocation().ToString())
+		//	UE_LOG(LogTemp, Warning, TEXT("Controlled at %s"), *ControlledTank->GetActorLocation().ToString())
+		//	UE_LOG(LogTemp, Warning, TEXT("AR %f"), AcceptanceRadius)
 		// Move towards the player
 		MoveToActor(PlayerTank, AcceptanceRadius);	// TODO check in cm
 
