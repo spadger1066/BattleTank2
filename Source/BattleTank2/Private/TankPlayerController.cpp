@@ -11,10 +11,10 @@
 void ATankPlayerController::BeginPlay(){
 	Super::BeginPlay();
 	auto AimingComponet = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if(AimingComponet){
+	if(ensure(AimingComponet)){
 		FoundAimingComponent(AimingComponet);
 	} else{
-		UE_LOG(LogTemp, Warning, TEXT("P{layer Controller can't find aiming component at BeginPlay"))
+		UE_LOG(LogTemp, Warning, TEXT("Player Controller can't find aiming component at BeginPlay"))
 	}
 }
 
@@ -40,7 +40,7 @@ ATank* ATankPlayerController::GetControlledTank() const{
  * \brief Start the tank moving the barrel so that a shot would hit where the cross hair intersects the world
  */
 void ATankPlayerController::AimTowardsCrosshair() const{
-	if (!GetControlledTank()) { return; }
+	if (!ensure(GetControlledTank())) { return; }
 
 	FVector HitLocation;	// Out parameter
 	if (GetSightRayHitLocation(HitLocation)) {
