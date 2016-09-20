@@ -1,6 +1,7 @@
 // It's mine. Leave it alone
 
 #include "BattleTank2.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 #include "TankPlayerController.h"
 
@@ -9,6 +10,12 @@
  */
 void ATankPlayerController::BeginPlay(){
 	Super::BeginPlay();
+	auto AimingComponet = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if(AimingComponet){
+		FoundAimingComponent(AimingComponet);
+	} else{
+		UE_LOG(LogTemp, Warning, TEXT("P{layer Controller can't find aiming component at BeginPlay"))
+	}
 }
 
 /**
