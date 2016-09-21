@@ -2,7 +2,6 @@
 
 #include "BattleTank2.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"
 #include "TankPlayerController.h"
 
 /**
@@ -10,7 +9,7 @@
  */
 void ATankPlayerController::BeginPlay(){
 	Super::BeginPlay();
-	auto AimingComponet = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	auto AimingComponet = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponet)) { return; }
 	FoundAimingComponent(AimingComponet);
 }
@@ -26,22 +25,15 @@ void ATankPlayerController::Tick(float DeltaTime)
 }
 
 /**
- * \brief Get the tank that the player is controlling
- * \return Pointer to the tank
- */
-ATank* ATankPlayerController::GetControlledTank() const{
-	return Cast<ATank>(GetPawn());
-}
-
-/**
  * \brief Start the tank moving the barrel so that a shot would hit where the cross hair intersects the world
  */
 void ATankPlayerController::AimTowardsCrosshair() const{
-	if (!ensure(GetControlledTank())) { return; }
+	auto AimingComponet = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponet)) { return; }
 
 	FVector HitLocation;	// Out parameter
 	if (GetSightRayHitLocation(HitLocation)) {
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponet->AimAt(HitLocation);
 	}
 }
 

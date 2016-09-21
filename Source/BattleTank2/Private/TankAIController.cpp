@@ -1,7 +1,7 @@
 // It's mine. Leave it alone
 
 #include "BattleTank2.h"
-#include "Tank.h"
+#include "TankAimingComponent.h"
 #include "TankAIController.h"
 
 /**
@@ -13,16 +13,16 @@ void ATankAIController::BeginPlay() {
 
 void ATankAIController::Tick(float DeltaSeconds){
 	Super::Tick(DeltaSeconds);
-	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	auto ControlledTank = Cast<ATank>(GetPawn());
-	if(ensure(PlayerTank)){
-		// Move towards the player
-		MoveToActor(PlayerTank, AcceptanceRadius);	// TODO check in cm
+	auto PlayerTank = (GetWorld()->GetFirstPlayerController()->GetPawn());
+	auto ControlledTank = (GetPawn());
+	if (!ensure(PlayerTank && ControlledTank)) { return; }
 
-		// Aim towards the player
-		ControlledTank->AimAt(PlayerTank->GetActorLocation()); // +FVector(1000, 0, 0));	// TODO remove offset
+	// Move towards the player
+	MoveToActor(PlayerTank, AcceptanceRadius);	// TODO check in cm
 
-		//ControlledTank->Fire();  // TODO don't fire every frame
-	}
+	// Aim towards the player
+	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
+	AimingComponent->AimAt(PlayerTank->GetActorLocation()); // +FVector(1000, 0, 0));	// TODO remove offset
+
+	//ControlledTank->Fire();  // TODO don't fire every frame + fix it
 }
-
