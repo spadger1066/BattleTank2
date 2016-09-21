@@ -30,6 +30,7 @@ private:
 
 	virtual void BeginPlay() override;
 
+	// TODO copy
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000.0;	
 	
