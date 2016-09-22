@@ -28,6 +28,7 @@ void ATankPlayerController::Tick(float DeltaTime)
  * \brief Start the tank moving the barrel so that a shot would hit where the cross hair intersects the world
  */
 void ATankPlayerController::AimTowardsCrosshair() const{
+	if (!GetPawn()) { return; }	// E.g. if not possessing
 	auto AimingComponet = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponet)) { return; }
 
