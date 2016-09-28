@@ -24,5 +24,7 @@ void ATankAIController::Tick(float DeltaSeconds){
 	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
 	AimingComponent->AimAt(PlayerTank->GetActorLocation()); // +FVector(1000, 0, 0));	// TODO remove offset
 
-	//AimingComponent->Fire();  
+	if (AimingComponent->GetFiringState() == EFiringStatus::Locked){
+		AimingComponent->Fire();
+	}
 }
