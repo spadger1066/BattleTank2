@@ -13,7 +13,7 @@ void UTankTrack::BeginPlay(){
 
 void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit){
 	DriveTrack();
-	ApplySidewaysForce();
+	//ApplySidewaysForce();
 	CurrentThrottle = 0;
 }
 
